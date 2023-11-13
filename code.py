@@ -12,7 +12,7 @@ wifi.radio.connect(os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'))
 pool = socketpool.SocketPool(wifi.radio)
 requests = requests.Session(pool, ssl.create_default_context())
 
-#  prints IP address to REPL
+# prints IP address to REPL
 print("My IP address is", wifi.radio.ipv4_address)
 
 # Get user set values & conversions
