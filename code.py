@@ -5,7 +5,7 @@
 import os, wifi, socketpool, ssl, alarm, board, simpleio, time
 import adafruit_requests as requests
 
-#  connect to your SSID
+# connect to your SSID
 wifi.radio.connect(os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'))
 
 # for wifi
