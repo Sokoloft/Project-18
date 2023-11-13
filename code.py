@@ -5,17 +5,7 @@
 import os, wifi, socketpool, ssl, alarm, board, simpleio, time
 import adafruit_requests as requests
 
-#  connect to your SSID
-wifi.radio.connect(os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'))
-
-# for wifi
-pool = socketpool.SocketPool(wifi.radio)
-requests = requests.Session(pool, ssl.create_default_context())
-
-#  prints IP address to REPL
-print("My IP address is", wifi.radio.ipv4_address)
-
-# Get user set values & conversions
+# Get user set values & do math
 push_ntfy_url = os.getenv('push_ntfy_url')
 push_ntfy_key = os.getenv('push_ntfy_key')
 push_ntfy_title = os.getenv('push_ntfy_title')
@@ -29,10 +19,10 @@ day = os.getenv('days') * 86400
 val = seconds + minute + hour + day
 push_ntfy = os.getenv('push_ntfy') + val
 
-print(alarm.wake_alarm)
+print(alarm.wake_alarm)  # prints last alarm state
 time_alarm = alarm.time.TimeAlarm(monotonic_time=time.monotonic() + val)
 
-if alarm.wake_alarm == None:
+if alarm.wake_alarm is None:
     # power on tone
 
     # simpleio
@@ -41,6 +31,7 @@ if alarm.wake_alarm == None:
 
     # wait for timer
     print("Sleeping for", val, "seconds...")
+    # deep sleep starts
     alarm.exit_and_deep_sleep_until_alarms(time_alarm)
 
 else:
@@ -51,6 +42,11 @@ else:
         val += 1
         print(val)
         while val == push_ntfy:
+            # connect to your SSID
+            wifi.radio.connect(os.getenv('WIFI_SSID'), os.getenv('WIFI_PASSWORD'))
+            pool = socketpool.SocketPool(wifi.radio)
+            requests = requests.Session(pool, ssl.create_default_context())
+
             val += 1
             requests.post(push_ntfy_url + push_ntfy_key,
                           data=push_ntfy_message,
@@ -60,3 +56,4 @@ else:
                               "Tags": push_ntfy_tag,
                           })
             print("NTFY Notification sent")
+            wifi.radio.stop_station()
