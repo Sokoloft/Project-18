@@ -4,21 +4,28 @@
 WIFI_SSID = "YOUR_WIFI_NAME"
 WIFI_PASSWORD = "YOUR_WIFI_PASSWORD"
 
+
 # Set the time you want the Piezo to start beeping
 # Minutes, Hours and Days are all added together
-seconds = 10 # testing
-minutes = 0
-hours = 0
-days = 0
+
+# Time until the beeper starts
+# Default is 3 Hours
+# Beeper time - Seconds, Minutes, Hours, Days
+beeper_time = "0, 0, 3, 0"
+
 
 # Push notification on your phone via ntfy app
 # https://ntfy.sh/
-push_ntfy = 30 # In seconds for now, still testing
-push_ntfy_key = "YOUR_RANDOM_STRING" # Random string. Generate one at https://www.random.org/strings/
-push_ntfy_url = "https://ntfy.sh/" # Do not change unless you know what you're doing
 
-push_ntfy_title = "Your 18 bottle is on!"
-push_ntfy_message = "18 is ON!"
-push_ntfy_prio = "5" # https://docs.ntfy.sh/publish/#message-priority
-push_ntfy_tag = "warning" # https://docs.ntfy.sh/publish/#tags-emojis
+# Timer starts AFTER the beeper
+# Default is 1 Hour, 30 Minutes
+# ntfy time - Seconds, Minutes, Hours, Days
+ntfy_time = "0, 30, 1, 0"
+
+ntfy_key = "YOUR_RANDOM_STRING" # Random string. Generate one at https://www.random.org/strings/
+ntfy_url = "https://ntfy.sh/" # Do not change unless you know what you're doing
+ntfy_title = "Your 18 bottle is on!"
+ntfy_message = "18 is ON!"
+ntfy_prio = "5" # https://docs.ntfy.sh/publish/#message-priority
+ntfy_tag = "warning" # https://docs.ntfy.sh/publish/#tags-emojis
 
